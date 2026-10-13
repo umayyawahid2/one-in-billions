@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find the Special Star</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #ffd9d9 0%, #ffb3b3 100%);
+            color: #5c4d68;
+            overflow: hidden;
+            transition: opacity 1s;
+        }
+        .instruction {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 32px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+            z-index: 20;
+            pointer-events: none;
+            color: var(--gold);
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        .sky {
+            position: absolute;
+            inset: 0;
+        }
+        .normal-star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            transition: 0.3s;
+        }
+        .normal-star:hover {
+            opacity: 0.8;
+            transform: scale(1.5);
+        }
+        .special-star {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ffcfcf;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px #d25c60, 0 0 20px #ff9a9e, 0 0 30px #ff9a9e;
+            animation: pulse 2s infinite;
+            z-index: 10;
+        }
+        .special-star:hover {
+            transform: scale(2);
+            box-shadow: 0 0 20px #d25c60, 0 0 40px #ff9a9e, 0 0 60px #ff9a9e, 0 0 80px white;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.5); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+        .flare {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, white 0%, #d25c60 20%, transparent 70%);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 100;
+            transition: opacity 1.5s;
+        }
+    </style>
+</head>
+<body>
+    <div class="instruction">Can you find the special star? ✨</div>
+    <div class="sky" id="sky"></div>
+    <div class="flare" id="flare"></div>
+
+    <script src="../js/cursor.js"></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const sender = params.get("from");
+        const receiver = params.get("to");
+
+        const sky = document.getElementById('sky');
+
+        // Create normal stars
+        for(let i=0; i<150; i++){
+            let star = document.createElement('div');
+            star.className = 'normal-star';
+            let size = Math.random() * 3 + 1;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = Math.random() * 95 + 2 + 'vw';
+            star.style.top = Math.random() * 85 + 10 + 'vh';
+            
+            // Randomly animate some normal stars to twinkle lightly
+            star.style.animation = `starTwinkle ${Math.random()*4 + 2}s infinite alternate`;
+            
+            sky.appendChild(star);
+        }
+
+        // Create the special star
+        const specialStar = document.createElement('div');
+        specialStar.className = 'special-star';
+        
+        // Place it somewhere not too close to the edges
+        specialStar.style.left = (Math.random() * 60 + 20) + 'vw';
+        specialStar.style.top = (Math.random() * 60 + 20) + 'vh';
+        
+        specialStar.onclick = function(e) {
+            // Create a massive flare effect at the click position
+            const flare = document.getElementById('flare');
+            flare.style.background = `radial-gradient(circle at ${e.clientX}px ${e.clientY}px, white 0%, #ff9a9e 20%, transparent 70%)`;
+            flare.style.opacity = '1';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '0';
+                setTimeout(() => {
+                    window.location.href = `chosen.html?from=${encodeURIComponent(sender)}&to=${encodeURIComponent(receiver)}`;
+                }, 1000);
+            }, 1500);
+        };
+        
+        sky.appendChild(specialStar);
+    </script>
+</body>
+</html>

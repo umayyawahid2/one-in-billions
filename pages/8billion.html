@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8 Billion People...</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .text-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 80%;
+        }
+        h1 {
+            font-size: 60px;
+            color: var(--gold);
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+        p {
+            font-size: 24px;
+            color: var(--gold);
+            opacity: 0;
+            animation: fadeIn 2s forwards 1.5s;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        .next-btn {
+            opacity: 0;
+            animation: fadeIn 2s forwards 3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="background"></div>
+
+    <div class="text-container">
+        <h1>There are over 8 billion people in this world...</h1>
+        <p>So many different souls, so many different paths.</p>
+        <button class="next-btn" onclick="nextPage()">Continue ✨</button>
+    </div>
+
+    <script src="../js/cursor.js"></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const sender = params.get("from");
+        const receiver = params.get("to");
+        
+        // Add stars dynamically
+        const starsContainer = document.querySelector('.stars');
+        for (let i = 0; i < 50; i++) {
+            let star = document.createElement('span');
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.animationDelay = Math.random() * 2 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        function nextPage() {
+            document.body.style.transition = "opacity 1s";
+            document.body.style.opacity = "0";
+            setTimeout(() => {
+                window.location.href = `universe.html?from=${encodeURIComponent(sender)}&to=${encodeURIComponent(receiver)}`;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

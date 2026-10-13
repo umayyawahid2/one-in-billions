@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Found You</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body {
+            background: #ffeff1;
+            transition: background 2s, opacity 1s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        h1 {
+            font-size: 50px;
+            color: #ff6b81;
+            opacity: 0;
+            animation: fadeUp 2s forwards 1s;
+            max-width: 800px;
+            line-height: 1.4;
+        }
+        h2 {
+            font-size: 70px;
+            color: #ff4757;
+            margin-top: 30px;
+            font-family: "Cormorant Garamond", serif;
+            opacity: 0;
+            animation: zoomIn 3s forwards 4s;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes zoomIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .btn-next {
+            opacity: 0;
+            animation: fadeUp 2s forwards 7s;
+        }
+        .heart-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffd5d5" opacity="0.3"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+            background-size: 100px 100px;
+            z-index: -1;
+            animation: panBg 20s linear infinite;
+        }
+        @keyframes panBg {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-bg"></div>
+    
+    <h1>Out of all the 8 billion people, and the infinite stars in the sky...</h1>
+    
+    <h2>I found you, <span id="receiver-name"></span>.</h2>
+    
+    <button class="btn-next" onclick="nextPage()">Why You? ✨</button>
+
+    <script src="../js/cursor.js"></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const sender = params.get("from");
+        const receiver = params.get("to");
+        
+        document.getElementById('receiver-name').innerText = receiver || "my love";
+
+        function nextPage() {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                window.location.href = `reasons.html?from=${encodeURIComponent(sender)}&to=${encodeURIComponent(receiver)}`;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

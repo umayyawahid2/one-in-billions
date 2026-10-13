@@ -1,0 +1,353 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+
+    --bg:#fde2e4;
+
+    --gold:#ff6b81;
+
+    --purple:#ff9a9e;
+
+    --pink:#F4A6C1;
+
+    --white:#ffffff;
+
+}
+
+body{
+
+    overflow:hidden;
+
+    background: linear-gradient(to bottom, #ffd9d9 0%, #ffb3b3 100%);
+
+    color: #5c4d68;
+
+    font-family:Poppins,sans-serif;
+
+    height:100vh;
+
+}
+
+.background{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:hidden;
+
+    z-index:0;
+
+    pointer-events:none;
+
+}
+
+.background::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:radial-gradient(circle at top,rgba(255,255,255,.05),transparent 30%),
+
+                radial-gradient(circle at 80% 20%,rgba(255,209,102,.08),transparent 15%),
+
+                radial-gradient(circle at 20% 75%,rgba(128,110,255,.08),transparent 20%);
+
+}
+
+.stars,
+
+.hearts{
+
+    position:absolute;
+
+    inset:0;
+
+}
+
+.stars span{
+
+    position:absolute;
+
+    width:2px;
+
+    height:2px;
+
+    border-radius:50%;
+
+    background:white;
+
+    opacity:.8;
+
+    filter:drop-shadow(0 0 8px rgba(255,255,255,.6));
+
+    animation:starTwinkle 3.8s infinite ease-in-out;
+
+}
+
+.hearts span{
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    font-size:24px;
+
+    opacity:.6;
+
+    color: #ff9a9e;
+
+    pointer-events:none;
+
+    animation:heartFloat 5.2s linear forwards;
+
+    text-shadow:0 0 12px rgba(255,255,255,.22);
+
+}
+
+@keyframes starTwinkle{
+
+    0%,100%{
+
+        opacity:.35;
+
+        transform:scale(1);
+
+    }
+
+    50%{
+
+        opacity:1;
+
+        transform:scale(1.4);
+
+    }
+
+}
+
+@keyframes heartFloat{
+
+    0%{
+
+        transform:translateY(0) scale(1);
+
+        opacity:.32;
+
+    }
+
+    50%{
+
+        opacity:.22;
+
+    }
+
+    100%{
+
+        transform:translateY(-320px) scale(1.2);
+
+        opacity:0;
+
+    }
+
+}
+
+.hero{
+
+    position:relative;
+
+    z-index:10;
+
+    height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:20px;
+
+}
+
+h1{
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:90px;
+
+    color:var(--gold);
+
+}
+
+h2{
+
+    font-weight:300;
+
+}
+
+h3{
+
+    font-weight:300;
+
+}
+
+#typing{
+
+    margin-top:40px;
+
+    font-size:24px;
+
+    color: #7a6c86;
+
+    height:35px;
+
+}
+
+button{
+
+    margin-top:60px;
+
+    padding:15px 38px;
+
+    border:none;
+
+    border-radius:40px;
+
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+
+    color:white;
+
+    font-weight: bold;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    transition:.4s;
+
+    box-shadow: 0 5px 15px rgba(255, 154, 158, 0.4);
+
+}
+
+button:hover{
+
+    transform:translateY(-5px) scale(1.05);
+
+    box-shadow: 0 10px 25px rgba(255, 154, 158, 0.6);
+
+}
+
+.fade{
+
+    opacity:0;
+
+    animation:fadeUp 1.2s forwards;
+
+}
+
+.delay1{animation-delay:1s;}
+.delay2{animation-delay:2s;}
+.delay3{animation-delay:3.5s;}
+.delay4{animation-delay:7s;}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+}
+/* Sparkle Container */
+
+#sparkle-container{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+    z-index:9999;
+
+}
+
+/* Individual Sparkle */
+
+.sparkle{
+
+    position:absolute;
+
+    font-size:14px;
+
+    animation:sparkleFloat .8s linear forwards;
+
+    filter:drop-shadow(0 0 8px white);
+
+}
+
+@keyframes sparkleFloat{
+
+    0%{
+
+        opacity:1;
+
+        transform:translate(-50%,-50%) scale(.5);
+
+    }
+
+    100%{
+
+        opacity:0;
+
+        transform:translate(-50%,-90px) scale(1.8);
+
+    }
+
+}
+
+.name-input {
+    width: 250px;
+    padding: 12px 20px;
+    border-radius: 20px;
+    border: 2px solid #ffb6c1;
+    background: rgba(255, 255, 255, 0.9);
+    color: #5c4d68;
+    font-size: 18px;
+    text-align: center;
+    font-family: Poppins, sans-serif;
+    outline: none;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(255, 182, 193, 0.2);
+}
+
+.name-input:focus {
+    border-color: #ff6b81;
+    box-shadow: 0 5px 15px rgba(255, 107, 129, 0.4);
+    transform: scale(1.02);
+}
